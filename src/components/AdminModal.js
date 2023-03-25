@@ -182,6 +182,9 @@ const CancelButton = styled.button`
   }
 `;
 
+// Env variable for API
+const { REACT_APP_API_URL } = process.env;
+
 let firstRender = true;
 const AdminModal = () => {
   // Iniitalize states
@@ -204,7 +207,7 @@ const AdminModal = () => {
 
     // Post request to auth route, takes in a password. If password is verified, api will send back new jwt, if not it will send back an error and error message
     axios
-      .post("/api/auth", { password })
+      .post(`${REACT_APP_API_URL}/api/auth`, { password })
       .then((res) => {
         // If data is retreived, store received token to localstorage
         localStorage.setItem("token", res.data.token);

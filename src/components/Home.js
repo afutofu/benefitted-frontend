@@ -50,7 +50,7 @@ const ContainerWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  cursor:grab;
+  cursor: grab;
   overflow-x: scroll;
   scrollbar-width: none;
   padding-bottom: 20px;
@@ -79,7 +79,7 @@ const Container = styled.div`
 
 const MediaWrapper = styled.a`
   margin-right: 50px;
-  /* pointer-events: ${(props) => props.isDown ? "none" : "auto"}; */
+  /* pointer-events: ${(props) => (props.isDown ? "none" : "auto")}; */
   /* pointer-events:none; */
 `;
 
@@ -221,6 +221,9 @@ let startX;
 let scrollLeft;
 let isScrolling = false;
 
+// Env variable for API
+const { REACT_APP_API_URL } = process.env;
+
 const Home = () => {
   // Retreive language from LanguageContext
   const [language] = useContext(LanguageContext);
@@ -260,36 +263,36 @@ const Home = () => {
   };
 
   // Functions for mouse movements
-  const onMouseDown = (e) =>{
+  const onMouseDown = (e) => {
     isDown = true;
     if (galleryContainer.current === null) return;
     startX = e.pageX - galleryContainer.current.offsetLeft;
     scrollLeft = galleryContainer.current.scrollLeft;
-  }
+  };
 
-  const onMouseLeave = (e) =>{
-    setTimeout(()=>{
+  const onMouseLeave = (e) => {
+    setTimeout(() => {
       isDown = false;
       isScrolling = false;
-    },10)
+    }, 10);
     e.preventDefault();
     e.stopPropagation();
-  }
+  };
 
-  const onMouseMove = (e) =>{
+  const onMouseMove = (e) => {
     if (!isDown) return;
     if (galleryContainer.current === null) return;
-    isScrolling = true
+    isScrolling = true;
     e.preventDefault();
     const x = e.pageX - galleryContainer.current.offsetLeft;
-    const walk = (x - startX) * 2 // Scroll speed
+    const walk = (x - startX) * 2; // Scroll speed
     galleryContainer.current.scrollLeft = scrollLeft - walk;
-  }
+  };
 
   // Retreive posts from API
   useEffect(() => {
     axios
-      .get("/api/posts")
+      .get(`${REACT_APP_API_URL}/api/posts`)
       .then((res) => {
         // Set posts immediately after retreiving data
         setPosts([...res.data]);
@@ -318,12 +321,14 @@ const Home = () => {
         <GalleryCover ref={galleryCover}>
           {postsLoading && <RippleSpinner />}
         </GalleryCover>
-        <ContainerWrapper ref={galleryContainer} 
-          onMouseDown={(e) => onMouseDown(e)} 
-          onMouseLeave={(e)=>onMouseLeave(e)} 
+        <ContainerWrapper
+          ref={galleryContainer}
+          onMouseDown={(e) => onMouseDown(e)}
+          onMouseLeave={(e) => onMouseLeave(e)}
           onMouseUp={onMouseLeave}
-          onMouseMove={(e)=>onMouseMove(e)}>
-          <Container >
+          onMouseMove={(e) => onMouseMove(e)}
+        >
+          <Container>
             {posts.map((post, i) => {
               if (post.media_type === "VIDEO") {
                 return (
@@ -332,7 +337,7 @@ const Home = () => {
                     href={post.permalink}
                     target="_blank"
                     rel="noreferrer"
-                    onClick={e=> isScrolling && e.preventDefault()}
+                    onClick={(e) => isScrolling && e.preventDefault()}
                   >
                     <Video autoplay={true}>
                       <source src={post.media_url} type="video/mp4" />
@@ -347,7 +352,7 @@ const Home = () => {
                   href={post.permalink}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={e=> isScrolling && e.preventDefault()}
+                  onClick={(e) => isScrolling && e.preventDefault()}
                 >
                   <Image key={post.id} src={post.media_url} />
                 </MediaWrapper>

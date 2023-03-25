@@ -167,6 +167,9 @@ const InfoText = styled.p`
   }
 `;
 
+// Env variable for API
+const { REACT_APP_API_URL } = process.env;
+
 // Initialize loading variable.
 // Avoids users from making requests when another is being sent
 let bookSlotLoading = false;
@@ -194,7 +197,7 @@ const BookSlot = () => {
 
     // Get request to auth route to check if token is valid for client to be set as admin
     axios
-      .get("/api/auth/admin", config)
+      .get(`${REACT_APP_API_URL}/api/auth/admin`, config)
       .then(() => {
         setIsAdmin(true);
       })
@@ -204,7 +207,7 @@ const BookSlot = () => {
 
     // Get all booked slot dates
     axios
-      .get(`/api/slotDates/${year}/${monthIndex}`)
+      .get(`${REACT_APP_API_URL}/api/slotDates/${year}/${monthIndex}`)
       .then((res) => {
         setBookedSlots([...res.data]);
       })
@@ -311,7 +314,11 @@ const BookSlot = () => {
       };
 
       axios
-        .post("/api/slotDates", { year, month: monthIndex, day }, config)
+        .post(
+          `${REACT_APP_API_URL}/api/slotDates`,
+          { year, month: monthIndex, day },
+          config
+        )
         .then((res) => {
           setBookedSlots((bookedSlots) => [...bookedSlots, res.data]);
         })
@@ -339,7 +346,10 @@ const BookSlot = () => {
         },
       };
       axios
-        .delete(`/api/slotDates/${year}/${monthIndex}/${day}`, config)
+        .delete(
+          `${REACT_APP_API_URL}/api/slotDates/${year}/${monthIndex}/${day}`,
+          config
+        )
         .then(() => {
           setBookedSlots(
             bookedSlots.filter((bookedSlot) => bookedSlot.day !== day)
