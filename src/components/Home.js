@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import { TimelineLite, Power3 } from "gsap";
-import axios from "axios";
 
 import { LanguageContext } from "../contexts/LanguageContext";
 
 import RippleSpinner from "./RippleSpinner";
+import api from "../api";
 
 const HomeComp = styled.section`
   position: relative;
@@ -291,7 +291,7 @@ const Home = () => {
 
   // Retreive posts from API
   useEffect(() => {
-    axios
+    api
       .get(`${REACT_APP_API_URL}/api/posts`)
       .then((res) => {
         // Set posts immediately after retreiving data

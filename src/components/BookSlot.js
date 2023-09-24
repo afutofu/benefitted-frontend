@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import axios from "axios";
 
 import { LanguageContext } from "../contexts/LanguageContext";
 import { AdminContext } from "../contexts/AdminContext";
+import api from "../api";
 
 const BookSlotComp = styled.section`
   width: 100%;
@@ -196,7 +196,7 @@ const BookSlot = () => {
     };
 
     // Get request to auth route to check if token is valid for client to be set as admin
-    axios
+    api
       .get(`${REACT_APP_API_URL}/api/auth/admin`, config)
       .then(() => {
         setIsAdmin(true);
@@ -206,7 +206,7 @@ const BookSlot = () => {
       });
 
     // Get all booked slot dates
-    axios
+    api
       .get(`${REACT_APP_API_URL}/api/slotDates/${year}/${monthIndex}`)
       .then((res) => {
         setBookedSlots([...res.data]);
@@ -313,7 +313,7 @@ const BookSlot = () => {
         },
       };
 
-      axios
+      api
         .post(
           `${REACT_APP_API_URL}/api/slotDates`,
           { year, month: monthIndex, day },
@@ -345,7 +345,7 @@ const BookSlot = () => {
           "x-auth-token": [localStorage.getItem("token")],
         },
       };
-      axios
+      api
         .delete(
           `${REACT_APP_API_URL}/api/slotDates/${year}/${monthIndex}/${day}`,
           config

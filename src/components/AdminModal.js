@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import styled, { keyframes } from "styled-components";
-import axios from "axios";
 
 import { AdminContext } from "../contexts/AdminContext";
+import api from "../api";
 
 const modalFadeIn = keyframes`
   0% {
@@ -206,7 +206,7 @@ const AdminModal = () => {
     setErrorMsg(null);
 
     // Post request to auth route, takes in a password. If password is verified, api will send back new jwt, if not it will send back an error and error message
-    axios
+    api
       .post(`${REACT_APP_API_URL}/api/auth`, { password })
       .then((res) => {
         // If data is retreived, store received token to localstorage
