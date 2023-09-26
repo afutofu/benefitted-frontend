@@ -1,6 +1,6 @@
 # Benefitted Frontend
 
-Website Link: [Benefitted](https://benefitted.onrender.com)
+Website Link: [Benefitted](https://benefitted.netlify.app)
 
 Backend Repository: [benefitted-backend](https://github.com/afutofu/benefitted-backend)
 
