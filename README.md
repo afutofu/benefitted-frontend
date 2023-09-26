@@ -1,4 +1,4 @@
-# Benefitted Frontend
+# Benefitted
 
 Website Link: [Benefitted](https://benefitted.netlify.app)
 
