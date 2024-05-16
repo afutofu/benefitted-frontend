@@ -10,11 +10,11 @@ Landing Page for Benefitted.
 
 Technologies used:
 
-- [React](https://reactjs.org/) - Frontend framework
-- [Instagram Basic Display API](https://developers.facebook.com/docs/instagram-basic-display-api/) - API to fetch instagram posts
-- [GSAP](https://greensock.com/gsap/) - Easy animations and integration with React
-- [Styled Components](https://styled-components.com/) - CSS styling written into custom components, gets rid of having to use separate css files
-- [Context API](https://reactjs.org/docs/context.html) - Access high level props without having to explicitly pass a prop through every level of the component tree
+- [React](https://reactjs.org/)
+- [Instagram Basic Display API](https://developers.facebook.com/docs/instagram-basic-display-api/)
+- [GSAP](https://greensock.com/gsap/)
+- [Styled Components](https://styled-components.com/)
+- [Context API](https://reactjs.org/docs/context.html)
 
 Features in this version:
 
